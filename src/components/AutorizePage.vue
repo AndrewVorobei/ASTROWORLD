@@ -19,9 +19,19 @@
     aria-labelledby="staticBackdropLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog">
+    <div class="modal-dialog d-flex">
       <div class="modal-content">
         <div class="modal-header">
+          <div class="login-signup d-flex">
+            <button class="text-bg-dark btn btn-dark" @click="showModal">
+              Login
+            </button>
+            <div class="vr text-light mx-2"></div>
+
+            <button class="text-bg-dark btn btn-dark" @click="showModal">
+              SignIn
+            </button>
+          </div>
           <button
             type="button"
             class="btn-close"
@@ -30,7 +40,8 @@
           ></button>
         </div>
         <div class="modal-body">
-          <log-in />
+          <log-in class="logInModal" />
+          <sign-up class="signupModal currentModal" />
         </div>
         <div class="modal-footer">
           <button
@@ -47,10 +58,26 @@
 </template>
 
 <script setup>
+import SignUp from "../views/AccPage/SignUp.vue";
+import { ref } from "vue";
 import LogIn from "../views/AccPage/LogIn.vue";
+
+const showModal = () => {
+  const signup = document.querySelector(".signupModal");
+  const login = document.querySelector(".logInModal");
+
+  if (!signup.hasAttribute("currentModal")) {
+    signup.classList.toggle("currentModal");
+    login.classList.toggle("currentModal");
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+.currentModal {
+  display: none;
+}
+
 .btn-primary {
   background-color: #6610f2;
   border: none;

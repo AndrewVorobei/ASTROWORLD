@@ -6,6 +6,7 @@ import SolarSistem from "../views/NavThemes/SolarSistem.vue";
 import OurGalaxy from "../views/NavThemes/OurGalaxy.vue";
 import NewsPage from "../views/NavThemes/NewsPage.vue";
 import SignUp from "../views/AccPage/SignUp.vue";
+import LogIn from "../views/AccPage/LogIn.vue";
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
         path: "/NewsPage",
         name: "news",
         component: NewsPage,
+      },
+      {
+        path: "/login",
+        name: "login",
+        component: LogIn,
       },
 
       {

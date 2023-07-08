@@ -1,50 +1,76 @@
 <template>
-  <form class="text-light d-flex flex-column gap-2 px-4">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label"
-        >Имя пользователя</label
-      >
-      <input
-        type="email"
-        class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
-        placeholder="Введите имя пользователя"
-      />
-      <div id="emailHelp" class="form-text">
-        Мы никогда никому не передадим вашу электронную почту.
+  <div class="">
+    <div class="alert alert-info">
+      Username: test<br />
+      Password: test
+    </div>
+    <Form
+      @submit="onSubmit"
+      :validation-schema="schema"
+      v-slot="{ errors, isSubmitting }"
+    >
+      <div class="form-group">
+        <label class="text-light py-3">Username</label>
+        <Field
+          name="username"
+          type="text"
+          class="form-control"
+          :class="{ 'is-invalid': errors.username }"
+        />
+        <div class="invalid-feedback">{{ errors.username }}</div>
       </div>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Пароль</label>
-      <input
-        type="password"
-        class="form-control"
-        id="exampleInputPassword1"
-        placeholder="Введите пароль"
-      />
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-      <label class="form-check-label" for="exampleCheck1">Проверить меня</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Отправить</button>
-
-    <div class="createAcc d-flex gap-4">
-      <label for="exampleInputPassword1" class="form-label"
-        >Создайте аккаунт</label
-      >
-
-      <router-link :to="{ name: 'signup' }">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
-          Создать
+      <div class="form-group">
+        <label class="text-light py-3">Password</label>
+        <Field
+          name="password"
+          type="password"
+          class="form-control"
+          :class="{ 'is-invalid': errors.password }"
+        />
+        <div class="invalid-feedback">{{ errors.password }}</div>
+      </div>
+      <div class="form-group pt-3 d-flex justify-content-center">
+        <button class="btn btn-light" :disabled="isSubmitting">
+          <span
+            v-show="isSubmitting"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          ВОЙТИ
         </button>
-      </router-link>
-    </div>
-  </form>
+      </div>
+      <div v-if="errors.apiError" class="alert alert-danger mt-3 mb-0">
+        {{ errors.apiError }}
+      </div>
+
+      <!-- <div class="createAcc d-flex justify-content-between">
+        <span class="text-light">Зарегестрируйтесь</span>
+        <router-link :to="{ name: 'signup' }">
+          <button class="btn btn-light">Создать</button>
+        </router-link>
+      </div> -->
+    </Form>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { Form, Field } from "vee-validate";
+import * as Yup from "yup";
+import { useAuthStore } from "../../stores/pinia";
+
+const schema = Yup.object().shape({
+  username: Yup.string().required("Username is required"),
+  password: Yup.string().required("Password is required"),
+});
+
+function onSubmit(values, { setErrors }) {
+  const authStore = useAuthStore();
+  const { username, password } = values;
+
+  return authStore
+    .login(username, password)
+    .catch((error) => setErrors({ apiError: error }));
+}
+</script>
 
 <style lang="scss">
 .createAcc {

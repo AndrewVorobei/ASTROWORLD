@@ -6,6 +6,7 @@
 </template>
 <style lang="scss">
 .aside-home-block {
+  height: 100vh;
   background-color: rgb(60, 63, 68);
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="main-home-block d-flex">
         <sidebar class="sidebarHome" />
         <main class="d-flex">
-          <p class="p-4 text-light text-xl-center">
+          <p class="p-4 text-light text-2xl-center">
             Добро пожаловать на наш сайт, посвященный удивительной тайне
             Космоса! Шаг в бескрайнее пространство, где звезды, планеты и
             галактики раскрывают свои загадки. Узнайте больше о невероятных
@@ -48,8 +48,9 @@ import Sidebar from "../views/Sidebar/Sidebar.vue";
   }
   .main-home-block {
     main {
-      // background: url("../assets/HomeImages/HomeBg.png");
-      background-color: rgba(8, 8, 8, 0.897);
+      background: url("../assets/HomeImages/HomeBg.png");
+
+      // background-color: rgba(8, 8, 8, 0.897);
       width: 100%;
       height: 100%;
     }
