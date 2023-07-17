@@ -85,6 +85,10 @@ const addUser = (ev) => {
   ) {
     store.$state.users.push(user);
     store.saveToLs(store.$state.users);
+    name.value = "";
+    lastname.value = "";
+    username.value = "";
+    password.value = "";
   }
 };
 </script>

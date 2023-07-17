@@ -10,7 +10,7 @@
       v-slot="{ errors, isSubmitting }"
     >
       <div class="form-group">
-        <label class="text-light py-3">Username</label>
+        <label class="text-light py-3">Имя пользователя</label>
         <Field
           name="username"
           type="text"
@@ -20,7 +20,7 @@
         <div class="invalid-feedback">{{ errors.username }}</div>
       </div>
       <div class="form-group">
-        <label class="text-light py-3">Password</label>
+        <label class="text-light py-3">Пароль</label>
         <Field
           name="password"
           type="password"
@@ -41,13 +41,6 @@
       <div v-if="errors.apiError" class="alert alert-danger mt-3 mb-0">
         {{ errors.apiError }}
       </div>
-
-      <!-- <div class="createAcc d-flex justify-content-between">
-        <span class="text-light">Зарегестрируйтесь</span>
-        <router-link :to="{ name: 'signup' }">
-          <button class="btn btn-light">Создать</button>
-        </router-link>
-      </div> -->
     </Form>
   </div>
 </template>
@@ -58,8 +51,8 @@ import * as Yup from "yup";
 import { useAuthStore } from "../../stores/pinia";
 
 const schema = Yup.object().shape({
-  username: Yup.string().required("Username is required"),
-  password: Yup.string().required("Password is required"),
+  username: Yup.string().required("Введите имя пользователя"),
+  password: Yup.string().required("Введите пароль"),
 });
 
 function onSubmit(values, { setErrors }) {

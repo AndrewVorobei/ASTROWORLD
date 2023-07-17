@@ -2,7 +2,7 @@
   <!-- Кнопка-триггер модального окна -->
   <button
     type="button"
-    class="btn btn-primary"
+    class="btn btn-primary autorize-page"
     data-bs-toggle="modal"
     data-bs-target="#staticBackdrop"
   >
@@ -23,13 +23,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="login-signup d-flex">
-            <button class="text-bg-dark btn btn-dark" @click="showModal">
-              Login
+            <button class="text-bg-dark btn btn-dark" @click="showLogIn">
+              Войти
             </button>
             <div class="vr text-light mx-2"></div>
 
-            <button class="text-bg-dark btn btn-dark" @click="showModal">
-              SignIn
+            <button class="text-bg-dark btn btn-dark" @click="showSignUp">
+              Зарегестрироваться
             </button>
           </div>
           <button
@@ -40,8 +40,8 @@
           ></button>
         </div>
         <div class="modal-body">
-          <log-in class="logInModal" />
-          <sign-up class="signupModal currentModal" />
+          <log-in v-if="logIn" class="logInModal" />
+          <sign-up v-if="signUp" class="signupModal currentModal" />
         </div>
         <div class="modal-footer">
           <button
@@ -59,23 +59,26 @@
 
 <script setup>
 import SignUp from "../views/AccPage/SignUp.vue";
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import LogIn from "../views/AccPage/LogIn.vue";
 
-const showModal = () => {
-  const signup = document.querySelector(".signupModal");
-  const login = document.querySelector(".logInModal");
+let signUp = ref(false);
+let logIn = ref(true);
 
-  if (!signup.hasAttribute("currentModal")) {
-    signup.classList.toggle("currentModal");
-    login.classList.toggle("currentModal");
-  }
+let showSignUp = () => {
+  signUp.value = true;
+  logIn.value = false;
+};
+
+let showLogIn = () => {
+  signUp.value = false;
+  logIn.value = true;
 };
 </script>
 
 <style lang="scss" scoped>
-.currentModal {
-  display: none;
+.autorize-page:hover {
+  transform: scale(1.1);
 }
 
 .btn-primary {
@@ -84,7 +87,7 @@ const showModal = () => {
 }
 
 .btn-primary:hover {
-  background-color: #6710f29d;
+  background-color: #7532e0da;
 }
 
 .modal-content {
